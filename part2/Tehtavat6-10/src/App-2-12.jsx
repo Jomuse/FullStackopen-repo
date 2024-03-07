@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
-import personService from './services/persons'
+import axios from 'axios'
 
 const PersonForm = (props) => {
   const {addName, newName, handleNameChange, newNumber, handleNumberChange} = props
@@ -24,7 +24,7 @@ const Persons = ({persons}) => {
   return(
     <div>
   {persons.map(person => 
-    <li key={person.name}> {person.name} {person.number} <div><button type="button">delete</button></div></li>)}
+    <li key={person.name}> {person.name} {person.number}</li>)}
   </div>
   )
   }
@@ -37,12 +37,14 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    personService
-    .getAll()
+    axios
+    .get('http://localhost:3001/persons')
     .then(response => {
+      console.log('promise fulfilled')
       setPersons(response.data)
     })
   }, [])
+  console.log('render', persons.length, 'persons')
   
   const addName = (event) => {
     event.preventDefault()
@@ -58,18 +60,12 @@ const App = () => {
       number: newNumber,
       id: persons.length +1,
     }
-    personService
-    .create(nameObject)
+    axios
+    .post('http://localhost:3001/persons', nameObject)
     .then(response => {
       setPersons(persons.concat(response.data))
       setNewName('')
       setNewNumber('')
-    })
-
-    personService
-    .delete()
-    .then(response => {
-      setPersons(persons(response.data))
     })
   }
 

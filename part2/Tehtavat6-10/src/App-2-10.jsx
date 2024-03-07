@@ -1,7 +1,4 @@
-/* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react'
-import personService from './services/persons'
-
+import { useState } from 'react'
 const PersonForm = (props) => {
   const {addName, newName, handleNameChange, newNumber, handleNumberChange} = props
   return(
@@ -24,25 +21,18 @@ const Persons = ({persons}) => {
   return(
     <div>
   {persons.map(person => 
-    <li key={person.name}> {person.name} {person.number} <div><button type="button">delete</button></div></li>)}
+    <li key={person.name}> {person.name} {person.number}</li>)}
   </div>
   )
   }
 
 
 const App = () => {
-  const [persons, setPersons] = useState([]) 
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-1231244' }
+  ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-
-  useEffect(() => {
-    console.log('effect')
-    personService
-    .getAll()
-    .then(response => {
-      setPersons(response.data)
-    })
-  }, [])
   
   const addName = (event) => {
     event.preventDefault()
@@ -58,19 +48,10 @@ const App = () => {
       number: newNumber,
       id: persons.length +1,
     }
-    personService
-    .create(nameObject)
-    .then(response => {
-      setPersons(persons.concat(response.data))
-      setNewName('')
-      setNewNumber('')
-    })
-
-    personService
-    .delete()
-    .then(response => {
-      setPersons(persons(response.data))
-    })
+    setPersons(persons.concat(nameObject))
+    setNewName('')
+    setNewNumber('')
+    
   }
 
   const handleNameChange = (event) => {
