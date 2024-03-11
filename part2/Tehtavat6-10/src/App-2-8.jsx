@@ -1,15 +1,5 @@
 import { useState } from 'react'
 
-const PersonForm {
-  return(
-
-  )
-}
-const Persons {
-  return (
-    
-  )
-}
 
 const App = () => {
   const [persons, setPersons] = useState([

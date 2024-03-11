@@ -24,7 +24,7 @@ const Persons = ({persons}) => {
   return(
     <div>
   {persons.map(person => 
-    <li key={person.name}> {person.name} {person.number} <div><button type="button">delete</button></div></li>)}
+    <li key={person.name}> {person.name} {person.number}</li>)}
   </div>
   )
   }
@@ -64,12 +64,6 @@ const App = () => {
       setPersons(persons.concat(response.data))
       setNewName('')
       setNewNumber('')
-    })
-
-    personService
-    .delete()
-    .then(response => {
-      setPersons(persons(response.data))
     })
   }
 
