@@ -6,6 +6,7 @@ const app = express()
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(cors())
+app.use(express.static('dist'))
 
 let persons = [
     {
@@ -29,6 +30,8 @@ let persons = [
       id: 4
     }
   ]
+
+
 
 app.get('/info', (req, res) => {
   const time = new Date()
@@ -62,6 +65,7 @@ const generateId = () => {
 }
 app.post('/api/persons', (req, res) => {
   const body = req.body
+  console.log(body)
   if(!body.name || !body.number){
     return res.status(400).json({
       error: 'Name or number missing'
