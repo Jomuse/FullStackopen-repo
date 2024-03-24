@@ -26,7 +26,7 @@ const Persons = (props) => {
     <div>
   {props.persons.map(person => 
     <li key={person.name}> {person.name} {person.number}
-      <button onClick={() => handlePersonDelete(person.id)}>delete</button>
+      <button onClick={() => handlePersonDelete(person)}>delete</button>
     </li>
     )}
   </div>
@@ -82,7 +82,6 @@ const App = () => {
     const nameObject = {
       name: newName,
       number: newNumber,
-      id: persons.length +1,
     }
     personService
     .create(nameObject)
@@ -98,14 +97,14 @@ const App = () => {
     })
     
   }
-  const handlePersonDelete = (id) => {
+  const handlePersonDelete = (person) => {
     
-    if(window.confirm(`Delete ${persons[id -1].name}`)){
+    if(window.confirm(`Delete ${person.name}`)){
       return(
         personService
-        .deletePerson(id)
+        .deletePerson(person.id)
         .then(() => {
-          setPersons(persons.filter((person) => person.id !== id))
+          setPersons(persons.filter((henkilo) => henkilo.id !== person.id))
         })
       )
     }
