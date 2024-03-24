@@ -4,6 +4,7 @@ const cors = require('cors')
 const app = express()
 
 app.use(express.json())
+app.use(express.static('dist'))
 app.use(morgan('tiny'))
 app.use(cors())
 
@@ -29,6 +30,8 @@ let persons = [
       id: 4
     }
   ]
+
+
 
 app.get('/info', (req, res) => {
   const time = new Date()
@@ -62,6 +65,7 @@ const generateId = () => {
 }
 app.post('/api/persons', (req, res) => {
   const body = req.body
+  console.log(body)
   if(!body.name || !body.number){
     return res.status(400).json({
       error: 'Name or number missing'
@@ -82,6 +86,7 @@ app.post('/api/persons', (req, res) => {
   res.json(person)
 })
 
-const PORT = 3001
-app.listen(PORT)
-console.log(`Server running on port ${PORT}`)
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
