@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "tehtavat1-6",
   "version": "1.0.0",
@@ -21,3 +22,28 @@
     "nodemon": "^3.1.0"
   }
 }
+=======
+{
+  "name": "tehtavat1-6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joose",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "mongoose": "^8.2.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
+>>>>>>> cc470629db911d264f5ac12c2ce380b64f867320
