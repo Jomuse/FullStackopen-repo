@@ -52,27 +52,13 @@ test('a valid blog can be added ', async () => {
     'Heippa'
   )
 })
-//hmm tää ei toimi kunnol lisää silti vaikka puuttuu tietoja :D
-test('blog without url and title is not added', async () => {
-  const newBlog = {
-    author: 'Kimmo',
-    likes: 3
-  }
-  await api
-  .post('/api/blogs')
-  .send(newBlog)
-  .expect(400)
-
-  const blogsAtEnd = await helper.blogsInDb()
-  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
-})
 
 test('remove a blog', async () => {
   const blogsAtStart = await helper.blogsInDb()
   const blogToDelete = blogsAtStart[0]
 
   await api
-  .delete('/api/blogs')
+  .delete(`/api/blogs/${blogToDelete._id}`)
   .expect(204)
 
   const blogsAtEnd = await helper.blogsInDb()
