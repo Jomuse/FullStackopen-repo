@@ -1,10 +1,11 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvdXNlIiwiaWQiOiI2NjFmYmM2MWY0ZjlmYzI0Nzg5ZGI1NTIiLCJpYXQiOjE3MTMzODA4MDl9.8-adrxBJqp6rDfEBpZ5Yjcbs0Fc77q9jl2UWi2aMA50
 
 {
-    "title": "Moikka",
-    "author": "Jouse",
-    "url": "jouse/moikka",
-    "likes": 8,
+    "title": "Moroo",
+    "author": "Jorma",
+    "url": "jorma/moroo",
+    "likes": 6,
     "userId": "661fbc61f4f9fc24789db552"
 }
