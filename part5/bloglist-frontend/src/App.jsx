@@ -13,9 +13,6 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [author, setAuthor] = useState('')
-  const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
   
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -64,6 +61,35 @@ const App = () => {
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
+    }
+  }
+
+  const handleLike = async (blog) => {
+    const updatedBlog = { ...blog, likes: blog.likes + 1}
+    try{
+      const returnedBlog = await blogService.update(blog.id, updatedBlog)
+      setBlogs(blogs.map(blog => blog.id === returnedBlog.id ? returnedBlog : blog))
+    } catch (exception){
+      setErrorMessage('Something went wrong')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
+  const handleDelete = async (blog) => {
+    console.log("Poistettava:", blog)
+    console.log("Kirjoittaja", blog.author)
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)){
+      try{
+        await blogService.remove(blog.id)
+        setBlogs(blogs.filter(b => b.id !== blog.id))
+      } catch (exception) {
+        setErrorMessage('Could not delete blog')
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      }
     }
   }
   
@@ -120,10 +146,14 @@ const App = () => {
       <p>{user.name} logged in</p>
       <button onClick={handleLogout}>logout</button>
       {blogForm()}
-      {blogs.map(blog => 
+      {blogs
+      .sort((a, b) => b.likes - a.likes)
+      .map(blog => 
         <Blog
           key={blog.id}
           blog={blog}
+          handleLike={handleLike}
+          handleDelete={handleDelete}
         />
       )}
     </div>
