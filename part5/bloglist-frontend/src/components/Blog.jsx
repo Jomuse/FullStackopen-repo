@@ -1,4 +1,4 @@
-const Blog = ({ blog, handleLike, handleDelete }) => (
+const Blog = ({ blog, handleLike, handleDelete, showRemoveButton }) => (
   <div>
     <div>
       {blog.title} {blog.author}
@@ -6,10 +6,12 @@ const Blog = ({ blog, handleLike, handleDelete }) => (
     <div>
       <button onClick={() => handleLike(blog)}>like</button> {blog.likes}
     </div>
-    <div>
-      <button onClick={() => handleDelete(blog)}>remove</button>
-    </div>
-  </div> 
+    {showRemoveButton &&(
+      <div>
+        <button onClick={() => handleDelete(blog)}>remove</button>
+      </div>
+    )}
+  </div>
 )
 
 export default Blog
